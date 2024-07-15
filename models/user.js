@@ -1,24 +1,29 @@
 import { Schema, model, models } from "mongoose";
 
+// Define the User schema
 const UserSchema = new Schema({
   email: {
     type: String,
-    unique: [true, "email already exists"],
-    required: [true, "email is required"],
+    unique: [true, "Email already exists"],
+    required: [true, "Email is required"],
   },
   username: {
     type: String,
-    required: [true, "username is required"],
+    unique: [true, "Username already exists!"],
+    required: [true, "Username is required!"],
     match: [
-      /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
-      "Username invalid, it should contain 8-20 alphanumeric letters and be unique!",
-    ],
+      /^[a-zA-Z0-9]{4,30}$/,
+      "Username invalid, it should contain 4-30 alphanumeric characters and be unique!",
+    ]
   },
   image: {
     type: String,
   },
+}, {
+  timestamps: true, // Adds createdAt and updatedAt fields
 });
 
+// Create the User model if it doesn't already exist
 const User = models.User || model("User", UserSchema);
 
 export default User;

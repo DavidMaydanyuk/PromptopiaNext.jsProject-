@@ -12,13 +12,16 @@ const Nav = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    const setProviders = async () => {
+    const setUpProviders = async () => {
       const response = await getProviders();
 
       setProviders(response);
     };
-    setProviders();
+
+    setUpProviders();
   }, []);
+
+ // console.log(providers);
 
   return (
     <nav className="flex-between w-full nb-16 pt-3">
@@ -48,7 +51,7 @@ const Nav = () => {
 
             <Link href="/profile">
               <img
-                src="/assets/images/logo.svg"
+                src={session?.user.image}
                 width={37}
                 height={37}
                 className="rounded-full"
@@ -73,13 +76,13 @@ const Nav = () => {
         )}
       </div>
 
-      {/*Desktop navigation*/}
-
+      {/*Mobile navigation*/}
+      {/*alert(providers)*/}
       <div className="sm:hidden flex relative">
         {session?.user ? (
           <div className="flex">
             <img
-              src="/assets/images/logo.svg"
+              src={session?.user.image}
               width={37}
               height={37}
               className="rounded-full"
